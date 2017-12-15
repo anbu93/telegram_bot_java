@@ -7,6 +7,11 @@ import org.w3c.dom.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+/**
+ * Created by anbu on 11.12.17
+ * Bot configuration xml parser.
+ * And builder of concrete configured bot TODO 0.2: check SRP
+ */
 public class Parser {
     private final String filename;
     private TelegramBot bot;
@@ -15,6 +20,7 @@ public class Parser {
         this.filename = filename;
     }
 
+    //TODO 0.1: refactor it
     public TelegramBot parse() throws Exception {
         DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         Document document = documentBuilder.parse(filename);

@@ -8,6 +8,11 @@ import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import java.util.HashMap;
 
+/**
+ * Created by anbu on 11.12.17
+ * telegram bot (main logic)
+ * //TODO 0.1: need to total refactoring
+ */
 public class TelegramBot extends TelegramLongPollingBot {
     private String id;
     private String token;
@@ -29,6 +34,7 @@ public class TelegramBot extends TelegramLongPollingBot {
     //region receive
     @Override
     public void onUpdateReceived(Update update) {
+        //TODO 0.1: refactor it
         try {
             Message message = update.getMessage();
             long id = message.getChatId();
@@ -41,6 +47,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                 handleCommand(text, session);
             }
         } catch(Exception e){
+            //TODO 0.2: error formatting
             long id = update.getMessage().getChatId();
             sendAnswer(id, "Error: " + e.getMessage());
         }
@@ -67,13 +74,14 @@ public class TelegramBot extends TelegramLongPollingBot {
     }
 
     private void handleCommand(String text, Session session) throws Exception {
-        String[] tokens = text.split(" ");
-        String commandId = tokens[0].toLowerCase();
+        String[] tokens = text.split(" "); //TODO 0.2: check performance
+        String commandId = tokens[0].toLowerCase(); //TODO 0.2: check out of range
         Command command = commandMap.get(commandId);
         if (command == null){
             command = commandMap.get(commandId.substring(1));
         }
         if (command == null) {
+            //TODO 0.2: error formatting
             throw new Exception("not found command for message \'" + text + "\'");
         }
         command.onMessage(text, session);
@@ -89,6 +97,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         try {
             sendApiMethod(s);
         } catch (TelegramApiException e){
+            //TODO 0.2: error formatting
             e.printStackTrace();
         }
     }
