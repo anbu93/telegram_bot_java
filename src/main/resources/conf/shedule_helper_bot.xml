@@ -1,0 +1,4 @@
+<bot id="test_framework_bot" token="497526205:AAGSl360IqA8nj7EgAtAduo6cetVaCSOCv8">
+    <command class="com.vova_cons.telegram_bot_framework.test.HelpCommand"/>
+    <command class="com.vova_cons.telegram_bot_framework.test.ContextHelloCommand"/>
+</bot>
