@@ -1,9 +1,14 @@
 group 'com.vova_cons'
-version '0.0.1'
+version = getVersionFromFile()
 
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
+sourceSets.main.java.srcDirs = [ "src/main/java" ]
+
+buildscript {
+    project.version = getVersion()
+}
 
 repositories {
     mavenCentral()
@@ -12,4 +17,56 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile "org.telegram:telegrambots:3.4"
+}
+
+task printVersion {
+    doLast {
+        project.version = getVersion()
+        println project.version
+    }
+}
+
+task incrementVersion {
+    doLast {
+        def _major = 0
+        def _minor = 0
+        def _patch = 0
+
+        def versionPropsFile = file('version.properties')
+
+        if (versionPropsFile.canRead()) {
+            def Properties versionProps = new Properties()
+
+            versionProps.load(new FileInputStream(versionPropsFile))
+
+            _major = versionProps['MAJOR'].toInteger()
+            _minor = versionProps['MINOR'].toInteger()
+            _patch = versionProps['PATCH'].toInteger() + 1
+
+            versionProps['MAJOR'] = _major.toString()
+            versionProps['MINOR'] = _minor.toString()
+            versionProps['PATCH'] = _patch.toString()
+            versionProps.store(versionPropsFile.newWriter(), null)
+        } else {
+            throw new GradleException("Could not read version.properties!")
+        }
+        project.version = "${_major}.${_minor}.${_patch}"
+    }
+}
+
+def getVersionFromFile() {
+    def versionPropsFile = file('version.properties')
+
+    if (versionPropsFile.canRead()) {
+        def Properties versionProps = new Properties()
+
+        versionProps.load(new FileInputStream(versionPropsFile))
+
+        def _major = versionProps['MAJOR'].toInteger()
+        def _minor = versionProps['MINOR'].toInteger()
+        def _patch = versionProps['PATCH'].toInteger()
+
+        return "${_major}.${_minor}.${_patch}"
+    }
+    return '0.0.0'
 }
