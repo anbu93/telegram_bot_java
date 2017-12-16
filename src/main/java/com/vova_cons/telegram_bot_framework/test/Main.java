@@ -1,6 +1,7 @@
 package com.vova_cons.telegram_bot_framework.test;
 
 import com.vova_cons.telegram_bot_framework.TelegramBotCore;
+import com.vova_cons.telegram_bot_framework.conf.Parser;
 
 /**
  * Created by anbu on 11.12.17
@@ -11,8 +12,12 @@ public class Main {
         try {
             //creating core
             TelegramBotCore core = new TelegramBotCore();
-            //set configuration file and init bot
-            core.init("conf/shedule_helper_bot.xml");
+            //parse configuration parser creating
+            Parser parser = new Parser("conf/shedule_helper_bot.xml");
+            //if neccessary you can set other bot builder object:
+            //parser.setBuilder(otherBuilder);
+            //initialization for bot
+            core.init(parser);
             //set database saving file
             core.setDatabaseFile("conf/shedule_helper_bot.db");
             //congratulation, bot are started!

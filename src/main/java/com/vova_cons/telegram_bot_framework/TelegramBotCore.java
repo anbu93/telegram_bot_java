@@ -15,13 +15,12 @@ public class TelegramBotCore {
 
     /**
      * bot initialization (parsing, building and run)
-     * @param configurationFile
+     * @param parser configuration parser
      * @throws Exception with can't started bot
      */
-    public void init(String configurationFile) throws Exception {
+    public void init(Parser parser) throws Exception {
         ApiContextInitializer.init();
         TelegramBotsApi botapi = new TelegramBotsApi();
-        Parser parser = new Parser(configurationFile);
         bot = parser.parse();
         try {
             botapi.registerBot(bot);
