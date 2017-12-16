@@ -7,6 +7,8 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 /**
  * Created by anbu on 11.12.17
@@ -14,11 +16,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * And builder of concrete configured bot TODO 0.2: check SRP
  */
 public class Parser {
-    private final String filename;
+    private final InputStream file;
     private TelegramBotBuilder builder;
 
-    public Parser(String filename) {
-        this.filename = filename;
+    public Parser(InputStream file) {
+        this.file = file;
         builder = new DefaultTelegramBotBuilder();
     }
 
@@ -45,7 +47,7 @@ public class Parser {
     //region parsing
     private Element parseConfiguration() throws Exception {
         DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        Document document = documentBuilder.parse(filename);
+        Document document = documentBuilder.parse(file);
         return document.getDocumentElement();
     }
 
