@@ -29,14 +29,4 @@ public class TelegramBotCore {
             e.printStackTrace();
         }
     }
-
-    /**
-     * set database file
-     * where user session saving and loading from
-     * @param dbFile file path
-     */
-    public void setDatabaseFile(String dbFile){
-        //TODO 0.1: may be use SQL or noSQL databases?
-        //TODO 0.1: read sessions from database, and saving to this db
-    }
 }

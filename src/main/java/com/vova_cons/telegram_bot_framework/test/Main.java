@@ -13,13 +13,11 @@ public class Main {
             //creating core
             TelegramBotCore core = new TelegramBotCore();
             //parse configuration parser creating
-            Parser parser = new Parser("conf/shedule_helper_bot.xml");
+            Parser parser = new Parser("conf/test_bot.xml");
             //if neccessary you can set other bot builder object:
             //parser.setBuilder(otherBuilder);
             //initialization for bot
             core.init(parser);
-            //set database saving file
-            core.setDatabaseFile("conf/shedule_helper_bot.db");
             //congratulation, bot are started!
             System.out.println("Started!");
         } catch (Exception e){
